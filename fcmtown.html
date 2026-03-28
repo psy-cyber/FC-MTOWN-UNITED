@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FC MTOWN United – Est. 2013</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap');
+
+  :root {
+    --pink: #E8197A;
+    --pink-light: #FF4DA0;
+    --pink-glow: rgba(232,25,122,0.25);
+    --black: #080808;
+    --dark: #111111;
+    --dark2: #181818;
+    --white: #FFFFFF;
+    --gray: #888888;
+    --gray-light: #CCCCCC;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE TEXTURE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .nav-logo-badge {
+    width: 42px; height: 42px;
+    border: 2px solid var(--pink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .nav-logo-badge::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    border: 1px solid rgba(232,25,122,0.3);
+  }
+
+  .nav-logo-badge svg { width: 22px; height: 22px; }
+
+  .nav-wordmark {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: var(--white);
+  }
+
+  .nav-wordmark span { color: var(--pink); }
+
+  .nav-cta {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--pink);
+    padding: 10px 24px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .nav-cta:hover {
+    background: var(--pink-light);
+    transform: translateY(-1px);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 120px 24px 80px;
+    text-align: center;
+  }
+
+  /* Grid lines background */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(232,25,122,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,25,122,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+
+  /* Pink glow orb */
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(232,25,122,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.7; }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--pink);
+    border: 1px solid rgba(232,25,122,0.4);
+    padding: 8px 20px;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-badge::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--pink);
+    border-radius: 50%;
+    animation: blink 1.5s ease-in-out infinite;
+  }
+
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 14vw, 160px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero-title .accent { color: var(--pink); }
+
+  .hero-title .outline {
+    -webkit-text-stroke: 2px var(--white);
+    color: transparent;
+  }
+
+  .hero-subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(18px, 3vw, 28px);
+    font-weight: 300;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    margin-top: 16px;
+    margin-bottom: 56px;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-subtitle em {
+    color: var(--pink);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .hero-cta {
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--pink);
+    padding: 18px 48px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--pink-light);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(232,25,122,0.4);
+  }
+
+  .btn-primary:hover::before { opacity: 1; }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: fadeUp 1s 0.6s ease both;
+  }
+
+  .hero-scroll span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--pink), transparent);
+    animation: scrollDown 1.5s ease-in-out infinite;
+  }
+
+  @keyframes scrollDown {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── STATS BAR ─── */
+  .stats-bar {
+    background: var(--dark2);
+    border-top: 1px solid rgba(232,25,122,0.2);
+    border-bottom: 1px solid rgba(232,25,122,0.2);
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    overflow: hidden;
+  }
+
+  .stat-item {
+    padding: 28px 24px;
+    text-align: center;
+    position: relative;
+    flex: 1;
+  }
+
+  .stat-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 20%; height: 60%;
+    width: 1px;
+    background: rgba(232,25,122,0.2);
+  }
+
+  .stat-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--pink);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+
+  /* ─── ABOUT ─── */
+  .about {
+    padding: 120px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .about-label::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: var(--pink);
+  }
+
+  .about-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 5vw, 80px);
+    line-height: 0.95;
+    margin-bottom: 32px;
+  }
+
+  .about-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--gray-light);
+    margin-bottom: 16px;
+  }
+
+  .about-text strong { color: var(--white); font-weight: 600; }
+
+  .about-visual {
+    position: relative;
+  }
+
+  /* FCM Logo SVG */
+  .fcm-emblem {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    display: block;
+    filter: drop-shadow(0 0 40px rgba(232,25,122,0.3));
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* ─── VALUES ─── */
+  .values {
+    background: var(--dark2);
+    padding: 80px 48px;
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+  }
+
+  .value-card {
+    flex: 1;
+    max-width: 320px;
+    padding: 40px 32px;
+    background: var(--dark);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+
+  .value-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--pink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+
+  .value-card:hover { transform: translateY(-4px); }
+  .value-card:hover::before { transform: scaleX(1); }
+
+  .value-icon {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  .value-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .value-desc {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.7;
+  }
+
+  /* ─── TEST SECTION ─── */
+  #test {
+    padding: 120px 24px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .test-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .test-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .test-label::before, .test-label::after {
+    content: '';
+    display: block;
+    flex: 1;
+    max-width: 40px;
+    height: 1px;
+    background: var(--pink);
+  }
+
+  .test-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(44px, 7vw, 72px);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .test-subtitle {
+    color: var(--gray);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* Progress */
+  .test-progress {
+    margin-bottom: 48px;
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--gray);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .progress-track {
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pink), var(--pink-light));
+    border-radius: 2px;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* Step card */
+  .step-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+
+  .step-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--pink), transparent);
+  }
+
+  .step-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 96px;
+    position: absolute;
+    top: -20px; right: 24px;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .step-q-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--pink);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .step-question {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 32px;
+  }
+
+  /* Age input */
+  .age-input-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .age-display {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    color: var(--pink);
+    text-align: center;
+    line-height: 1;
+  }
+
+  .age-unit {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    color: var(--gray);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: -8px;
+    margin-bottom: 8px;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 2px;
+    outline: none;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--pink);
+    cursor: pointer;
+    border: 3px solid var(--black);
+    box-shadow: 0 0 12px rgba(232,25,122,0.5);
+    transition: transform 0.2s;
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+  }
+
+  /* YN Buttons */
+  .yn-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .btn-yn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 24px 20px;
+    border: 2px solid rgba(255,255,255,0.12);
+    background: transparent;
+    color: var(--white);
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-yn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--pink);
+    transform: translateY(100%);
+    transition: transform 0.25s;
+    z-index: 0;
+  }
+
+  .btn-yn span { position: relative; z-index: 1; }
+
+  .btn-yn:hover::before { transform: translateY(0); }
+  .btn-yn:hover { border-color: var(--pink); color: var(--black); }
+
+  /* Next button */
+  .btn-next {
+    width: 100%;
+    margin-top: 24px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--pink);
+    padding: 18px;
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: all 0.25s;
+  }
+
+  .btn-next:hover {
+    background: var(--pink-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(232,25,122,0.4);
+  }
+
+  .btn-next:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Result screens */
+  .result-screen {
+    text-align: center;
+    padding: 20px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .result-icon {
+    font-size: 64px;
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  .result-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 7vw, 60px);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .result-title.success { color: var(--pink); }
+  .result-title.reject { color: var(--white); }
+
+  .result-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--gray-light);
+    max-width: 420px;
+    margin: 0 auto 40px;
+  }
+
+  .result-text strong { color: var(--white); }
+
+  /* Success animation */
+  .confetti-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 200;
+    overflow: hidden;
+  }
+
+  .confetti-piece {
+    position: absolute;
+    top: -20px;
+    width: 8px; height: 8px;
+    border-radius: 1px;
+    animation: confettiFall linear forwards;
+  }
+
+  @keyframes confettiFall {
+    to {
+      transform: translateY(110vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  /* Reject style */
+  .reject-tag {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gray);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 6px 18px;
+    margin-bottom: 24px;
+  }
+
+  /* Step transition */
+  .step-wrap {
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  .step-wrap.exiting {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  .step-wrap.entering {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--dark2);
+    border-top: 1px solid rgba(232,25,122,0.15);
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+  }
+
+  .footer-logo span { color: var(--pink); }
+
+  .footer-tagline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+
+  .footer-right {
+    text-align: right;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: var(--gray);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-cta { display: none; }
+
+    .about {
+      grid-template-columns: 1fr;
+      gap: 48px;
+      padding: 80px 24px;
+    }
+
+    .about-visual { order: -1; }
+    .fcm-emblem { max-width: 240px; }
+
+    .values {
+      flex-direction: column;
+      padding: 60px 24px;
+      gap: 2px;
+      align-items: center;
+    }
+
+    .value-card { max-width: 100%; width: 100%; }
+
+    .stats-bar {
+      padding: 0 16px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item { flex: 1 1 50%; }
+
+    footer {
+      flex-direction: column;
+      gap: 24px;
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .footer-right { text-align: center; }
+
+    .step-card { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-badge">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="50%" y="16" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="10" fill="#E8197A">FCM</text>
+      </svg>
+    </div>
+    <div>
+      <div class="nav-wordmark">FC <span>MTOWN</span> UNITED</div>
+    </div>
+  </a>
+  <a href="#test" class="nav-cta">Bist du dabei?</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Est. 2013 · Mtown United</div>
+  <h1 class="hero-title">
+    <span class="outline">FC</span><br>
+    <span class="accent">MTOWN</span><br>
+    <span>UNITED</span>
+  </h1>
+  <p class="hero-subtitle">Nicht für alle. Nur für die <em>Richtigen.</em></p>
+  <div class="hero-cta">
+    <a href="#test" class="btn-primary">Bist du dabei?</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-number">2013</div>
+    <div class="stat-label">Gegründet</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">100%</div>
+    <div class="stat-label">Commitment</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">ONE</div>
+    <div class="stat-label">Tribe</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">∞</div>
+    <div class="stat-label">Ambition</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-content">
+    <div class="about-label">Über uns</div>
+    <h2 class="about-title">Mehr als ein Verein.</h2>
+    <p class="about-text">
+      <strong>FC MTOWN United</strong> ist kein gewöhnlicher Fußballverein – wir sind ein Netzwerk aus unternehmerisch denkenden Menschen, die den Sport als Plattform für Wachstum, Verbindung und Identität nutzen.
+    </p>
+    <p class="about-text">
+      Seit 2013 vereinen wir <strong>Macher, Brand Owner und Visionäre</strong> unter einem Wappen. Bei uns geht es nicht nur um das Spiel – es geht um den Mindset dahinter.
+    </p>
+    <p class="about-text">
+      Wir spielen, wir bauen, wir wachsen – gemeinsam. <strong>MTOWN ist kein Ort. MTOWN ist eine Haltung.</strong>
+    </p>
+  </div>
+  <div class="about-visual">
+    <!-- FCM Emblem SVG -->
+    <svg class="fcm-emblem" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#E8197A" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#E8197A" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <!-- Glow bg -->
+      <circle cx="180" cy="180" r="180" fill="url(#glowGrad)"/>
+      <!-- Outer ring -->
+      <circle cx="180" cy="180" r="168" fill="none" stroke="#E8197A" stroke-width="2.5"/>
+      <!-- Middle ring -->
+      <circle cx="180" cy="180" r="150" fill="none" stroke="rgba(232,25,122,0.3)" stroke-width="1"/>
+      <!-- Inner ring -->
+      <circle cx="180" cy="180" r="130" fill="none" stroke="#E8197A" stroke-width="1.5"/>
+      <!-- Inner fill -->
+      <circle cx="180" cy="180" r="128" fill="#111111"/>
+      <!-- FC top text -->
+      <path id="topArc" d="M 52 180 A 128 128 0 0 1 308 180" fill="none"/>
+      <text font-family="'Bebas Neue',sans-serif" font-size="24" fill="white" letter-spacing="8">
+        <textPath href="#topArc" startOffset="20%">FC MTOWN</textPath>
+      </text>
+      <!-- UNITED bottom text -->
+      <path id="botArc" d="M 60 185 A 120 120 0 0 0 300 185" fill="none"/>
+      <text font-family="'Bebas Neue',sans-serif" font-size="22" fill="white" letter-spacing="10">
+        <textPath href="#botArc" startOffset="18%">UNITED</textPath>
+      </text>
+      <!-- Big FCM center -->
+      <text x="180" y="172" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="72" fill="#E8197A" letter-spacing="2">FCM</text>
+      <!-- Year -->
+      <text x="180" y="210" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-size="14" fill="rgba(255,255,255,0.4)" letter-spacing="4">2 0 1 3</text>
+      <!-- Deco lines left/right -->
+      <line x1="55" y1="180" x2="90" y2="180" stroke="#E8197A" stroke-width="2"/>
+      <line x1="270" y1="180" x2="305" y2="180" stroke="#E8197A" stroke-width="2"/>
+      <!-- Small diamonds -->
+      <polygon points="180,52 185,60 180,68 175,60" fill="#E8197A"/>
+      <polygon points="180,292 185,300 180,308 175,300" fill="#E8197A"/>
+    </svg>
+  </div>
+</section>
+
+<!-- VALUES -->
+<div class="values">
+  <div class="value-card">
+    <div class="value-icon">🐺</div>
+    <div class="value-title">Rudel Mentalität</div>
+    <div class="value-desc">Wir kämpfen als Team, wachsen als Team und feiern als Team. Niemand bleibt zurück.</div>
+  </div>
+  <div class="value-card">
+    <div class="value-icon">🏗️</div>
+    <div class="value-title">Builder First</div>
+    <div class="value-desc">Unsere Mitglieder sind Unternehmer, Macher und Visionäre – Menschen die etwas aufbauen.</div>
+  </div>
+  <div class="value-card">
+    <div class="value-icon">⚡</div>
+    <div class="value-title">Kein Limit</div>
+    <div class="value-desc">Der Platz ist unser Labor. Ambition, Intensität und Leidenschaft ohne Kompromisse.</div>
+  </div>
+</div>
+
+<!-- TEST SECTION -->
+<section id="test">
+  <div class="test-header">
+    <div class="test-label">Eignungstest</div>
+    <h2 class="test-title">Gehörst du dazu?</h2>
+    <p class="test-subtitle">Beantworte zwei Fragen und find heraus, ob FC MTOWN United der richtige Verein für dich ist.</p>
+  </div>
+
+  <div id="test-progress" class="test-progress" style="display:none">
+    <div class="progress-meta">
+      <span id="step-counter">Schritt 1 von 2</span>
+      <span id="step-pct">50%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:50%"></div>
+    </div>
+  </div>
+
+  <!-- START -->
+  <div id="step-start" class="step-card step-wrap">
+    <div class="step-number">★</div>
+    <div class="step-q-label">Ready?</div>
+    <h3 class="step-question">Finde heraus, ob du das Zeug dazu hast, Teil von FC MTOWN United zu werden.</h3>
+    <p style="color:var(--gray);font-size:14px;margin-bottom:24px;line-height:1.7">Der Test dauert weniger als 60 Sekunden. Sei ehrlich – wir merken es sowieso.</p>
+    <button class="btn-next" onclick="goToStep(1)">Test starten →</button>
+  </div>
+
+  <!-- STEP 1: Alter -->
+  <div id="step-1" class="step-card step-wrap" style="display:none">
+    <div class="step-number">01</div>
+    <div class="step-q-label">Frage 1 von 2</div>
+    <h3 class="step-question">Wie alt bist du?</h3>
+    <div class="age-input-wrap">
+      <div class="age-display" id="age-display">28</div>
+      <div class="age-unit">Jahre</div>
+      <input type="range" id="age-slider" min="16" max="60" value="28"
+        oninput="document.getElementById('age-display').textContent=this.value">
+    </div>
+    <button class="btn-next" onclick="handleAge()">Weiter →</button>
+  </div>
+
+  <!-- STEP 2: Brand Owner -->
+  <div id="step-2" class="step-card step-wrap" style="display:none">
+    <div class="step-number">02</div>
+    <div class="step-q-label">Frage 2 von 2</div>
+    <h3 class="step-question">Bist du selbstständig oder Brand Owner?</h3>
+    <p style="color:var(--gray);font-size:14px;margin-bottom:24px;line-height:1.7">
+      Eigenes Unternehmen, Freelancer, Creator, Gründer – zählt alles.
+    </p>
+    <div class="yn-buttons">
+      <button class="btn-yn" onclick="handleBrandOwner(true)"><span>✓ &nbsp;Ja, bin ich</span></button>
+      <button class="btn-yn" onclick="handleBrandOwner(false)"><span>✗ &nbsp;Nein</span></button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div id="step-success" class="step-card step-wrap" style="display:none">
+    <div class="result-screen">
+      <span class="result-icon">🐺</span>
+      <h3 class="result-title success">Du passt zu<br>FC MTOWN United!</h3>
+      <p class="result-text">
+        Willkommen im Rudel. Du bringst genau den Mindset mit, den wir suchen –
+        <strong>unternehmerisch, ambitioniert und bereit</strong>, auf dem Platz alles zu geben.
+        Wir melden uns bei dir.
+      </p>
+      <a href="mailto:join@fcmtown.com" class="btn-primary" style="display:inline-block">Jetzt bewerben →</a>
+    </div>
+  </div>
+
+  <!-- REJECT: AGE -->
+  <div id="step-reject-age" class="step-card step-wrap" style="display:none">
+    <div class="result-screen">
+      <span class="result-icon">⏳</span>
+      <div class="reject-tag">Noch nicht jetzt</div>
+      <h3 class="result-title reject">Noch nicht ganz.</h3>
+      <p class="result-text">
+        FC MTOWN United richtet sich an Mitglieder <strong>ab 23 Jahren</strong>.
+        Du bist noch jung – nutz die Zeit, bau etwas auf, und komm wieder wenn du bereit bist.
+        <strong>Wir warten auf dich.</strong>
+      </p>
+      <button class="btn-primary" onclick="resetTest()" style="background:transparent;color:var(--pink);border:2px solid var(--pink);clip-path:none;padding:14px 32px">
+        Nochmal versuchen
+      </button>
+    </div>
+  </div>
+
+  <!-- REJECT: STATUS -->
+  <div id="step-reject-status" class="step-card step-wrap" style="display:none">
+    <div class="result-screen">
+      <span class="result-icon">🔒</span>
+      <div class="reject-tag">Nicht erfüllt</div>
+      <h3 class="result-title reject">Noch nicht<br>der richtige Zeitpunkt.</h3>
+      <p class="result-text">
+        Unser Verein ist für <strong>Unternehmer, Freelancer und Brand Owner</strong> gedacht –
+        Menschen, die aktiv etwas aufbauen. Sobald du diesen Schritt gemacht hast,
+        sind wir dabei. <strong>Wir glauben an dich.</strong>
+      </p>
+      <button class="btn-primary" onclick="resetTest()" style="background:transparent;color:var(--pink);border:2px solid var(--pink);clip-path:none;padding:14px 32px">
+        Nochmal versuchen
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">FC <span>MTOWN</span> UNITED</div>
+    <div class="footer-tagline">Not for everyone. For the right ones.</div>
+  </div>
+  <div class="footer-right">
+    <div>Est. 2013</div>
+    <div style="margin-top:4px;">© 2025 FC MTOWN United</div>
+  </div>
+</footer>
+
+<!-- CONFETTI CONTAINER -->
+<div id="confetti-container" class="confetti-container"></div>
+
+<script>
+  const steps = ['step-start','step-1','step-2','step-success','step-reject-age','step-reject-status'];
+  let currentStep = 'step-start';
+
+  function showStep(id, direction = 1) {
+    const current = document.getElementById(currentStep);
+    const next = document.getElementById(id);
+
+    current.classList.add('exiting');
+
+    setTimeout(() => {
+      current.style.display = 'none';
+      current.classList.remove('exiting');
+
+      next.style.display = 'block';
+      next.classList.add('entering');
+
+      setTimeout(() => {
+        next.classList.remove('entering');
+        next.classList.add('step-wrap');
+      }, 20);
+
+      currentStep = id;
+      updateProgress(id);
+    }, 300);
+  }
+
+  function updateProgress(id) {
+    const prog = document.getElementById('test-progress');
+    const fill = document.getElementById('progress-fill');
+    const counter = document.getElementById('step-counter');
+    const pct = document.getElementById('step-pct');
+
+    if (id === 'step-start' || id.startsWith('step-reject') || id === 'step-success') {
+      prog.style.display = 'none';
+      return;
+    }
+
+    prog.style.display = 'block';
+
+    if (id === 'step-1') {
+      fill.style.width = '50%';
+      counter.textContent = 'Schritt 1 von 2';
+      pct.textContent = '50%';
+    } else if (id === 'step-2') {
+      fill.style.width = '100%';
+      counter.textContent = 'Schritt 2 von 2';
+      pct.textContent = '100%';
+    }
+  }
+
+  function goToStep(n) {
+    showStep('step-' + n);
+  }
+
+  function handleAge() {
+    const age = parseInt(document.getElementById('age-slider').value);
+    if (age < 23) {
+      showStep('step-reject-age');
+    } else {
+      showStep('step-2');
+    }
+  }
+
+  function handleBrandOwner(isOwner) {
+    if (isOwner) {
+      showStep('step-success');
+      launchConfetti();
+    } else {
+      showStep('step-reject-status');
+    }
+  }
+
+  function resetTest() {
+    const prog = document.getElementById('test-progress');
+    prog.style.display = 'none';
+    document.getElementById('age-slider').value = 28;
+    document.getElementById('age-display').textContent = '28';
+    showStep('step-start');
+  }
+
+  function launchConfetti() {
+    const container = document.getElementById('confetti-container');
+    const colors = ['#E8197A','#FF4DA0','#ffffff','#FFB3D1','#ff69b4'];
+
+    for (let i = 0; i < 80; i++) {
+      setTimeout(() => {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.width = (Math.random() * 8 + 4) + 'px';
+        piece.style.height = (Math.random() * 8 + 4) + 'px';
+        piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        piece.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        piece.style.animationDelay = '0s';
+        container.appendChild(piece);
+        setTimeout(() => piece.remove(), 4000);
+      }, i * 25);
+    }
+  }
+
+  // Smooth scroll for all anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Intersection observer for fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.value-card, .stat-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
